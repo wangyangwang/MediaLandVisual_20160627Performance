@@ -8,8 +8,6 @@ import oscP5.*;
 import netP5.*;
 import processing.sound.*;
 
-
-
 AudioIn in;
 Amplitude amp;
 
@@ -19,7 +17,7 @@ NetAddress myRemoteLocation;
 void setup() {
   size(500, 200);
   amp = new Amplitude(this);
-
+  pixelDensity(2);
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 1999);
   in = new AudioIn(this, 0);
@@ -33,7 +31,7 @@ void draw() {
   textAlign(CENTER);
   textSize(12);
   text("Sending Music Analysis Data to Unity 3D Now...", width/2, height/2);
-  text(amp.analyze()*100, width/2, height/2 + 12);
+  text("Current Amplitude:"+  amp.analyze()*100, width/2, height/2 + 12);
   OscMessage myMessage = new OscMessage("/test");
   myMessage.add(amp.analyze()*100); /* add an int to the osc message */
   oscP5.send(myMessage, myRemoteLocation);
